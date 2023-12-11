@@ -1,0 +1,234 @@
+<!doctype html>
+<html>
+<head>
+<style>
+body {
+	font-family: '华文新魏', "Comic Sans MS",sans-serif;
+	background-image: linear-gradient(to right, #a8cecf, #e6ae8c);
+	background-size: cover; /* 覆盖整个页面 */
+        }
+  #calculator {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    padding: 20px;
+    box-sizing: border-box;
+  }
+  table {
+    width: 50%;
+    border-collapse: separate;
+	background-color: transparent;
+  }
+  td {
+    text-align: center;
+    width: 20%;
+    height: 60px;
+    font-size: 24px;
+    cursor: pointer;
+    border-radius: 30px;
+    background: radial-gradient(circle at top right, rgba(249,183,251,0.70), rgba(193,101,209,0.80), rgba(139,51,160,0.90));/*随便加个渐变*/
+    transition: opacity 0.8s;
+    color: #fff;
+  }
+  td:hover {
+    opacity: 0.7;
+  }
+  td:active {
+    transform: scale(0.9);/*点击缩小*/
+  }
+  #result {
+    text-align: right;
+    font-size: 36px;
+    height: 80px;
+    line-height: 80px;
+    padding: 0 10px;
+    margin-bottom: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: #f9f9f9;
+  }
+  
+  #clear {
+    width: 50%;
+  }
+  
+  #equalto {
+	background-color: rgba(251,247,183,1.00);
+  }
+  
+  .butterfly {
+    position: absolute;
+    width: 50px;
+    height: 50px;
+    background-image: url('image/butterfly.gif');
+    background-size: cover;
+    z-index: 999;
+  }
+  
+  @keyframes butterfly-fly0 {
+    0% {
+      transform: translate(0, 0);
+    }
+    100% {
+      transform: translate(-500px, -500px);
+    }
+  } 
+	@keyframes butterfly-fly1 {
+    from {
+      transform: translate(0, 0);
+    }
+    to {
+      transform: translate(500px, 500px);
+    }
+  } 
+	@keyframes butterfly-fly2 {
+    0% {
+      transform: translate(0, 0);
+    }
+    100% {
+      transform: translate(-500px, 500px);
+    }
+  } 
+	@keyframes butterfly-fly3 {
+    0% {
+      transform: translate(0, 0);
+    }
+    100% {
+      transform: translate(500px, -500px);
+    }
+  } 
+  #EasterEgg {
+    background-color: rgba(193,101,209,1.00);
+  }
+</style>
+ 
+<title>花里胡哨但毫不实用的——计算器</title>
+<link href="stylesheet/styleChinesePoems.css" rel="stylesheet">
+</head>
+
+<body>
+	
+    <div id="navigation-bar" style="width:100%;position:fixed;left:0;">
+      <h1>华而不实计算器</h1>
+      <button >
+<select id="backgroundImg" name="backgroundImg" onchange="changeBackgroundImage(this.value);" style="width: 100%; border-width: 0px; background-color: rgba(207,177,244,0.80); font-size: 17px; height: 100%;font-family: STXinwei">
+	<option value="background01" selected>切换背景</option>
+	<option value="background01">1</option>
+	<option value="background02">2</option>
+	<option value="background03">3</option>
+	<option value="background04">4</option>
+	<option value="background05">5</option>
+</select>
+</button>
+      <button onclick="window.location.href='https://www.runoob.com/js/js-tutorial.html'" target="_self">返回寝室</button>
+        <button onclick="window.location.href='https://www.jianshu.com/p/9d6a6fc3e398#1701167954810'" target="_self">返回主页</button>
+		
+        <button onclick="revealEasterEgg(this)">空</button>
+		
+    </div>
+  <div id="calculator">
+    <table style="width: 500px">
+      <tr>
+        <td colspan="5" id="result">0</td>
+      </tr>
+      <tr>
+        <td class="td">0</td>
+        <td class="td">.</td>
+        <td id="EasterEgg">0</td>
+        <td id="clear" colspan="2">清零</td>
+      </tr>
+      <tr>
+        <td class="td">1</td>
+        <td class="td">2</td>
+        <td class="td">3</td>
+        <td class="td">+</td>
+        <td class="td">-</td>
+      </tr>
+      <tr>
+        <td class="td">4</td>
+        <td class="td">5</td>
+        <td class="td">6</td>
+        <td class="td">*</td>
+        <td class="td">/</td>
+      </tr>
+      <tr>
+        <td class="td">7</td>
+        <td class="td">8</td>
+        <td class="td">9</td>
+        <td id="equalto" colspan="2">=</td>
+      </tr>
+    </table>
+  </div>
+	<script>
+    var calculatorElements = document.getElementsByClassName("td");
+    var equalTo = document.getElementById("equalto");
+    var result1 = document.getElementById("result");
+    var clear1 = document.getElementById("clear");
+    var easteregg1 = document.getElementById("EasterEgg");
+    var expression = ""; //算数公式字符串
+    equalTo.onclick = function() {
+      if (expression !== "") {//开始状态就不改变,非空白就计算
+        result1.innerHTML = eval(expression);//eval() 函数计算 JavaScript 字符串
+      }
+      if (result1.innerHTML !== "0") {//非0 计算结果赋值给公式以便下次计算
+        expression = result1.innerHTML;
+      }
+    }
+    clear1.onclick = function() {//清空公式和计算结果 匿名函数 当然也可以采取单独取名然后作为属性引用的方法
+      expression = '';
+      result1.innerHTML = '0';
+    }
+  
+    for (var i = 0; i < calculatorElements.length; i++) {//遍历NodeList对象 添加onclick事件
+      calculatorElements[i].index = i;//不可直接用i代替，因为那是一个属性……
+      calculatorElements[i].onclick = function() {
+        expression += calculatorElements[this.index].innerHTML;
+        result1.innerHTML = expression;
+        //为每次按键，单独添加蝴蝶动画，解决了需要多次触发的问题
+        var butterfly = document.createElement("div");//创建节点
+        butterfly.classList.add("butterfly");
+        butterfly.style.left = event.pageX + "px";//根据鼠标指针位置定位
+        butterfly.style.top = event.pageY + "px";
+        
+        var direction = Math.floor(Math.random() * 4);//生成随机数来随机蝴蝶飞的方向
+        switch (direction) {
+          case 0://添加蝴蝶动画
+            butterfly.style.animation = "butterfly-fly0 5s ease-in-out";
+            break;
+          case 1:
+            butterfly.style.animation = "butterfly-fly1 5s ease-in-out";
+            break;
+          case 2:
+            butterfly.style.animation = "butterfly-fly2 5s ease-in-out";
+            break;
+          case 3:
+            butterfly.style.animation = "butterfly-fly3 5s ease-in-out";
+            break;
+        }
+        document.body.appendChild(butterfly);//把节点添加到body下，以便于position:absolute定位
+        setTimeout(function() {
+          document.body.removeChild(butterfly);//5s后即删除之
+        }, 5000);
+      };
+	}
+    easteregg1.onclick = function() {//只触发一次，采用添加类的办法
+      if (!easteregg1.classList.contains("clicked")) {
+        easteregg1.classList.add("clicked");
+        easteregg1.innerHTML = "彩蛋";
+        alert("发现彩蛋！祝你玩得开心！");
+      }
+    }
+	function changeBackgroundImage(selectedValue) {//在下拉列表中切换背景图片
+        var imageMap = {
+            "background02": "linear-gradient(200deg, #7bc6cc, #be93c5)",//我他喵开始在字符串末尾打了分号导致……加载不出来图片
+            "background01": "linear-gradient(to right, #a8cecf, #e6ae8c)",
+            "background03": "linear-gradient(to right, #f0acf7, #acf7f0, #f7f0ac)",
+            "background04": "linear-gradient(to right, #cc86d1, #dcffbd)",
+            "background05": "linear-gradient(to right, #f7797d, #fbd786, #c6ffdd)"
+        };
+        document.body.style.backgroundImage = imageMap[selectedValue];
+    }
+  </script>
+</body>
+</html>

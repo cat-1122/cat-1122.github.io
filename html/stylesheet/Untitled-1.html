@@ -1,0 +1,223 @@
+
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>计算机类2110班</title>
+<style type="text/css">
+@import url("css/新建文本文档.css");
+@import url("css/slogan-329.css");
+	*{cursor: url( css/ComixCursors-White/Comix_White_Pointer.cur),auto;}
+body,td,th {
+	font-family: Lato, Arial, sans-serif;
+}
+body {
+	background-color: #D2E9E7;
+}
+a {
+	cursor: url( css/ComixCursors-White/Comix_White_Link.cur),auto;
+}
+	p {
+		cursor: url(css/ComixCursors-White/Comix_White_Text.cur),text;
+	}
+
+</style>
+</head>
+
+<body>
+	<script>
+            //鼠标点击出现爱心特效
+            (function(window,document,undefined){
+            var hearts = [];
+            window.requestAnimationFrame = (function(){
+                return window.requestAnimationFrame ||
+                window.webkitRequestAnimationFrame ||
+                window.mozRequestAnimationFrame ||
+                window.oRequestAnimationFrame ||
+                window.msRequestAnimationFrame ||
+                function (callback){
+                    setTimeout(callback,1000/60);
+                }
+            })();
+            init();
+            function init(){
+                css(".heart{width: 10px;height: 10px;position: fixed;background: #f00;transform: rotate(45deg);-webkit-transform: rotate(45deg);-moz-transform: rotate(45deg);}.heart:after,.heart:before{content: '';width: inherit;height: inherit;background: inherit;border-radius: 50%;-webkit-border-radius: 50%;-moz-border-radius: 50%;position: absolute;}.heart:after{top: -5px;}.heart:before{left: -5px;}");
+                attachEvent();
+                gameloop();
+            }
+            function gameloop(){
+                for(var i=0;i<hearts.length;i++){
+                    if(hearts[i].alpha <=0){
+                        document.body.removeChild(hearts[i].el);
+                        hearts.splice(i,1);
+                        continue;
+                    }
+                    hearts[i].y--;
+                    hearts[i].scale += 0.004;
+                    hearts[i].alpha -= 0.013;
+                    hearts[i].el.style.cssText = "left:"+hearts[i].x+"px;top:"+hearts[i].y+"px;opacity:"+hearts[i].alpha+";transform:scale("+hearts[i].scale+","+hearts[i].scale+") rotate(45deg);background:"+hearts[i].color;
+                }
+                requestAnimationFrame(gameloop);
+            }
+            function attachEvent(){
+                var old = typeof window.onclick==="function" && window.onclick;
+                window.onclick = function(event){
+                    old && old();
+                    createHeart(event);
+                }
+            }
+            function createHeart(event){
+                var d = document.createElement("div");
+                d.className = "heart";
+                hearts.push({
+                    el : d,
+                    x : event.clientX - 5,
+                    y : event.clientY - 5,
+                    scale : 1,
+                    alpha : 1,
+                    color : "rgb(95,158,160)",
+                });
+                document.body.appendChild(d);
+            }
+            function css(css){
+                var style = document.createElement("style");
+                style.type="text/css";
+                try{
+                    style.appendChild(document.createTextNode(css));
+                }catch(ex){
+                    style.styleSheet.cssText = css;
+                }
+                document.getElementsByTagName('head')[0].appendChild(style);
+            }
+        })(window,document);
+    </script>
+<table width="99%" align="center" cellspacing="50">
+  <tbody>
+    <tr>
+      <td height="10" colspan="5" align="center" valign="middle"><blockquote><img src="images/banner.png" alt=""/></blockquote></td>
+    </tr>
+    <tr>
+      <td width="15%" rowspan="3">&nbsp;</td>
+      <td align="center" valign="middle">&nbsp;
+		<div class="port-1 effect-1">
+		                	<div class="image-box">
+		                    	<img src="images/dorm/324.jpg" alt="">
+		                    </div>
+		                    <div class="text-desc">
+		                    	<h3>324 & 401</h3>
+								<p>"干啥啥不行 摆烂第一名"
+									<br>"累了 毁灭吧"
+								</p>
+		                    	<a href="http://yu-wenzhe.gitee.io/sushe1/" class="btn">Learn more</a>
+		                    </div>
+		  </div>
+		</td>
+      <td align="center" valign="middle">&nbsp;
+		<div class="port-1 effect-1">
+		                	<div class="image-box">
+		                    	<img src="images/dorm/325.jpg" alt="">
+		                    </div>
+		                    <div class="text-desc">
+		                    	<h3>325</h3>
+								<p>"今天不学习，明天变垃圾"</p>
+		                    	<a href="http://raxskle.gitee.io/d325" class="btn">Learn more</a>
+		                    </div>
+		  </div>
+		</td>
+      <td align="center" valign="middle">&nbsp;
+		<div class="port-1 effect-1">
+		                	<div class="image-box">
+		                    	<img src="images/dorm/326.jpg" alt="">
+		                    </div>
+		                    <div class="text-desc">
+		                    	<h3>326</h3>
+								<p>"生前何必早睡 死后必定长眠"</p>
+		                    	<a href="http://le0nard.gitee.io/pages_326/" class="btn">Learn more</a>
+		                    </div>
+		  </div>
+		</td>
+      <td width="15%" rowspan="3">&nbsp;</td>
+    </tr>
+    <tr>
+      <td align="center" valign="middle">&nbsp;
+		<div class="port-1 effect-1">
+		                	<div class="image-box">
+		                    	<img src="images/dorm/327.jpg" alt="">
+		                    </div>
+		                    <div class="text-desc">
+		                    	<h3>327</h3>
+								<p>"养    生  ，  摸    鱼！"</p>
+		                    	<a href="http://gaolang1643.gitee.io/dorm-pages/" class="btn">Learn more</a>
+		                    </div>
+		  </div>
+		</td>
+      <td align="center" valign="middle">&nbsp;
+		<div class="port-1 effect-1">
+		                	<div class="image-box">
+		                    	<img src="images/dorm/328.jpg" alt="">
+		                    </div>
+		                    <div class="text-desc">
+		                    	<h3>328</h3>
+								<p>"正确的"</p>
+		                    	<a href="http://junj76.gitee.io/myweb328/" class="btn">Learn more</a>
+		                    </div>
+		  </div>
+		</td>
+      <td align="center" valign="middle">&nbsp;
+		<div class="port-1 effect-1">
+		                	<div class="image-box">
+		                    	<img src="images/dorm/329.jpg" alt="">
+		                    </div>
+		                    <div class="text-desc">
+		                    	<h3 class="title329">329</h3>
+								<p class="slogan329">HELLO WORLD! </p>
+		                    	<a href="http://pbcgitee.gitee.io/room329/" class="btn">Learn more</a>
+		                    </div>
+		  </div>
+		</td>
+    </tr>
+    <tr>
+      <td align="center" valign="middle">&nbsp;
+		<div class="port-1 effect-1">
+		                	<div class="image-box">
+		                    	<img src="images/dorm/330.jpg" alt="">
+		                    </div>
+		                    <div class="text-desc">
+		                    	<h3>330</h3>
+								<p>"两眼一睁，开始竞争；两眼一闭，学到咽气"</p>
+		                    	<a href="https://chenxiaoyu1118.gitee.io/the-my-room" class="btn">Learn more</a>
+		                    </div>
+		  </div>
+		</td>
+      <td align="center" valign="middle">&nbsp;
+		<div class="port-1 effect-1">
+		                	<div class="image-box">
+		                    	<img src="images/dorm/332.jpg" alt="">
+		                    </div>
+		                    <div class="text-desc">
+		                    	<h3>332</h3>
+								<p>"宁可摆死自己，也不卷死同学"</p>
+		                    	<a href="http://col_lin.gitee.io/website_332/" class="btn">Learn more</a>
+		                    </div>
+		  </div>
+		</td>
+      <td align="center" valign="middle">&nbsp;
+		<div class="port-1 effect-1">
+		                	<div class="image-box">
+		                    	<img src="images/dorm/321.jpg" alt="">
+		                    </div>
+		                    <div class="text-desc">
+		                    	<h3>321</h3>
+								<p>"吃啥？"</p>
+		                    	<a href="http://chensr233.gitee.io/room321/" class="btn">Learn more</a>
+		                    </div>
+		  </div>
+		</td>
+    </tr>
+    <tr>
+      <td height="30" colspan="5" align="center" valign="middle" bgcolor="#446764"><img src="images/below.png" alt="" width="467" height="167"/></td>
+    </tr>
+  </tbody>
+</table>
+</body>
+</html>

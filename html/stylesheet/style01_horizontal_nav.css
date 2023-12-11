@@ -1,0 +1,164 @@
+@charset "utf-8";
+/* CSS Document 嗯 我发现写这个没有一点用 因为我不想一个模板做全部（*/
+body{
+	font-family: "华文新魏",STKaiti,"Comic Sans MS",sans-serif;
+	margin:0px;
+	padding:0px;
+}
+header, section, footer, aside, nav, article, figure
+{ 
+    display: block; /*考虑到浏览器兼容问题 好吧 没必要暂时……主要我字体大小也没考虑……*/
+}
+.fadeleft{
+	-webkit-animation-name:fadeLeft;
+	animation: fadeLeft 2s forwards ease-out;
+}
+.fadeRight{
+	-webkit-animation-name:fadeRight;
+	animation: fadeRight 2s forwards ease-out;
+}
+
+@keyframes fadeLeft {
+  0% {
+    opacity: 0;
+    -webkit-transform: scale(0.7) translateX(-50px);
+    transform: scale(0.7) translateX(-50px);
+  }
+  100% {
+    opacity: 1;
+    -webkit-transform: scale(1) translateX(0);
+    transform: scale(1) translateX(0);
+  }
+}
+@keyframes fadeRight {
+  0% {
+    opacity: 0;
+    -webkit-transform: scale(0.7) translateX(150px);
+    transform: scale(0.7) translateX(150px);
+  }
+  100% {
+    opacity: 1;
+    -webkit-transform: scale(1) translateX(0);
+    transform: scale(1) translateX(0);
+  }
+}
+header{
+	width:100%; 
+	height:auto; 
+	background-color:#FFF;
+	padding:50px 0px;
+	margin:0px;
+	position:fixed; top:0; left:0; 
+	z-index:888;}
+header .logo{
+	width:20%; 
+	height:auto;
+	float:left;}
+header nav{
+	width:auto; 
+	float:right; 
+	margin-top:10px;
+	padding: 5px}
+header nav a{
+	display:inline-block; 
+	width:8%; 
+	height:auto;
+	float:right; 
+	margin-left:10px; 
+	text-align: center;
+	font-size:x-large; 
+	color:#000000;}
+header nav a .dropdownContents{
+	display: none;
+	position: absolute;
+	overflow:visible;
+	margin: 0px;
+	padding: 0px;
+	background-color: #FFFFFF;
+}
+header nav a .dropdownContents a{
+	display:block;
+	color:rgba(58,2,148,0.98);
+    padding:10px 10px;
+    text-decoration:none;
+  }
+:hover .dropdown-content,
+header nav a:link{
+	text-decoration-line: underline;
+	text-decoration-style: wavy;
+	text-decoration-color: bisque;}
+header nav a:visited{
+	text-decoration-line: none;
+	color:olive;}
+header nav a:hover,
+header nav a:active{
+	text-decoration-line: underline;
+	text-decoration-style: wavy;
+	text-decoration-color: #FFF;
+	color:#FFF;
+	background-color: #000000;}
+.sidebar {
+	position: fixed;
+	top: 20%; /*匹配导航栏*/
+	width: 19%;left:0px;
+	color:#000000;
+	font-size:large;
+	font-weight: 200;
+	background-color: rgba(248, 248, 248, 0.9);
+	box-shadow: 2px 0 5px rgba(229,215,20,0.20);}
+.left{
+	left:0px;
+	margin-left:0px;
+	padding-left: 20px;
+}
+.right{
+	left:unset;/*因为前面可能规定了left……所以必须去掉，否则right无法起效*/
+	right:0px;
+	margin-right:0px;
+	padding-right: 20px;
+}
+.sidebar ul {
+            list-style: none;
+            padding: 0;}
+.sidebar li {
+            margin-bottom: 10px;}
+.sidebar a {
+            text-decoration: none;
+            color: #333;}
+.withLeftbar{/*section*/
+	position: absolute
+	margin:15px;
+	padding: 15px;
+	background: rgba(255, 255, 255, 0.7);
+	margin-right: 100px;
+	font-size:medium;
+	text-align: center;
+        }
+.section .withLeftBar{
+	margin-left: 20%; /*匹配侧栏*/
+	margin-right:15px;}
+.section .withRightBar{
+	margin-right: 20%; /*匹配侧栏*/
+	margin-left:15px;}
+.gradient,.gradient a{
+    background-image: linear-gradient(to right, #eaafc8, #654ea3);/*本来想直接用动画弄渐变色的 但是还是改成了用背景实现*/
+	color:transparent;
+	background-clip: text;/*背景剪裁，文字透明，就可以直接渐变文字啦完美*/
+	-webkit-background-clip:text;/*加一道保险 safari、chrome*/
+}
+.gradient a:hover{
+    background: -webkit-linear-gradient(left, #A7BFE8, #6190E8);
+    background: linear-gradient(to right, #A7BFE8, #6190E8);
+	color:transparent;
+	background-clip: text;
+	-webkit-background-clip:text;
+}
+footer{
+	font-size: large;
+	background-color: rgba(236,241,162,0.80);
+	position: absolute;
+	border-radius:20px;
+	top: 80%;
+	width: 84%;
+	height:auto;
+}
