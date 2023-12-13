@@ -105,7 +105,7 @@ body {
     }
   } 
   #EasterEgg {
-    background-color: rgba(193,101,209,1.00);
+    background-color: rgba(255,255,255,1.00);
   }
 </style>
  
@@ -140,8 +140,7 @@ body {
       <tr>
         <td class="td">0</td>
         <td class="td">.</td>
-        <td id="EasterEgg">0</td>
-        <td id="clear" colspan="2">清零</td>
+        <td id="clear" colspan="3">清零</td>
       </tr>
       <tr>
         <td class="td">1</td>
@@ -170,7 +169,6 @@ body {
     var equalTo = document.getElementById("equalto");
     var result1 = document.getElementById("result");
     var clear1 = document.getElementById("clear");
-    var easteregg1 = document.getElementById("EasterEgg");
     var expression = ""; //算数公式字符串
     equalTo.onclick = function() {
       if (expression !== "") {//开始状态就不改变,非空白就计算
@@ -184,9 +182,8 @@ body {
       expression = '';
       result1.innerHTML = '0';
     }
-  
     for (var i = 0; i < calculatorElements.length; i++) {//遍历NodeList对象 添加onclick事件
-      calculatorElements[i].index = i;//不可直接用i代替，因为那是一个属性……
+      calculatorElements[i].index = i;//this.index不可直接用i，因为i的值在事件触发时已经变化
       calculatorElements[i].onclick = function() {
         expression += calculatorElements[this.index].innerHTML;
         result1.innerHTML = expression;
@@ -195,7 +192,6 @@ body {
         butterfly.classList.add("butterfly");
         butterfly.style.left = event.pageX + "px";//根据鼠标指针位置定位
         butterfly.style.top = event.pageY + "px";
-        
         var direction = Math.floor(Math.random() * 4);//生成随机数来随机蝴蝶飞的方向
         switch (direction) {
           case 0://添加蝴蝶动画
