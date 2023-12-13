@@ -1,0 +1,218 @@
+<!doctype html>
+<html>
+<head>
+    <link href="../stylesheet/style01_horizontal_nav.css" rel="stylesheet">
+    <style>
+		#classmark {
+		position:fixed;
+		right:0;
+		top:0;
+		margin:50px;
+		z-index: 9999;
+		cursor: pointer;
+	}
+	#classmark:hover,#classmark:active {
+		transform: scale(1.2);
+	}
+		.slidetext a {
+			text-decoration: none;
+		}
+		.aholder {
+			border-radius: 10px;
+			border: 2px dotted #D5ACDF;
+		}
+        body {
+            font-family: '华文新魏', "Comic Sans MS", sans-serif;
+            background: #d9a7c7; /* 样式兼容 */
+            background: -webkit-linear-gradient(left, #fffcdc, #d9a7c7);
+            background: -o-linear-gradient(left, #fffcdc, #d9a7c7);
+            background: linear-gradient(to right, #fffcdc, #d9a7c7);
+			/*设margin,padding为0影响了body导致背景无法覆盖 教训深刻*/
+        }
+        * {
+            cursor: url("../image/樱花cur格式.cur"), auto; /* 换个好看的指针真费劲啊（先用PS弄一朵透明背景的樱花，再转换成cur */
+        }
+        .midline {
+            position: absolute;
+            top: 230px;
+            right: 0;
+            margin: 0 50px;
+            text-align: center;
+            font-size: xxx-large;
+        }
+        .door-container { /* 画一个门！ */
+            position: absolute;
+            left: 18%;
+            top: 100px;
+            width: 150px;
+            height: 300px;
+        }
+		@keyframes indoors{
+			from{transform: rotateY(0deg);}
+			to{transform:rotateY(-80deg);}
+		}
+        .door {
+            width: auto;
+            height: 300px;
+            background-color: #7F584A;
+            border-color: inherit;
+            border-radius: 10px;
+            position: relative;
+            display: flex;
+            color: white;
+            justify-content: center;
+            align-items: center;
+            font-size: x-large;
+            padding: 10px;
+        }
+        .door-handle {
+            width: 15px;
+            height: 15px;
+            background-color: #f1c40f;
+            border-radius: 50%;
+            position: absolute;
+            right: 20px;
+            top: 50%;
+            transform: translateY(-50%); /* 与文字中线对齐 */
+        }
+        table {
+            display: none;
+            position: fixed;
+            left: 500px;
+            top: 10%;
+        }
+        table img {
+            width: 200px;
+            height: 200px;
+            margin: 0;
+            padding: 0;
+            transition: transform 0.3s;
+        }
+        .slidetext {
+            position: absolute;
+            left: 0;
+            top: -100%;
+            background-color: rgba(255, 255, 255);
+            height: 100%;
+            opacity: 0.9;
+            width: 100%;
+            padding: 0;
+            margin: 0;
+            transition: 0.5s;
+            color: #000;
+			cursor: url("../image/flower2.cur"), auto;
+        }
+        .dormcontainer {
+            position: relative;
+            overflow: hidden; /* 文本在上方，隐藏 */
+            text-align: center;
+			border-radius: 10px;
+            cursor: url("../image/flower2.cur"), auto;
+        }
+        .dormcontainer:hover img {
+            transform: scale(1.3);
+        }
+        .dormcontainer:hover .slidetext {
+            top: 0;
+        }
+    </style>
+    <meta charset="utf-8">
+    <title>寝室主页</title>
+
+</head>
+<body>
+	<script>
+// 为了避免重复添加事件监听器，在页面加载时或者组件初始化时
+var doorContainer = document.getElementById("door1");
+doorContainer.style.animation = "indoors 3s ease-in-out infinite alternate none paused";		
+function pauseAnimation() {
+	doorContainer.style.animationPlayState = "paused";
+}
+function toggleDoor() {
+    var midline = document.getElementById("title1");
+    var table1 = document.getElementById("dormmate");
+
+    // 检查当前的显示状态，并根据状态切换显示内容及应用动画
+    if (midline.style.display == "block" || midline.style.display == ""){
+        midline.style.display = 'none';
+//		doorContainer.style.animationPlayState = "running";
+//		setTimeout(myfunc,3000);
+//        setTimeout(pauseAnimation,3000);
+        table1.style.display = 'block';
+    } else {
+        midline.style.display = 'block';
+//		doorContainer.style.animationPlayState = "running";
+//		setTimeout(myfunc,3000);
+//		setTimeout(pauseAnimation,3000);
+        table1.style.display = 'none';
+    }
+}
+		function changeImage(element, newSrc) {
+		element.src = '../image/' + newSrc;
+	}
+</script>
+	<div class="midline gradient " id="title1" style="display:block;">欢迎来到429寝室~</div>
+    <div class="door-container" onclick="toggleDoor()" id="door1">
+        <div class="door">
+            传送门
+            <div class="door-handle"></div>
+        </div>
+    </div>
+    <table width="100%" cellspacing="40px" id="dormmate">
+        <tbody>
+            <tr>
+                <td>
+                    <div class="dormcontainer" onClick="window.open('index.html','_self')">
+                        <img src="../image/01.jpg" alt="彭源远头像">
+                        <div class="slidetext">
+							<div class="gradient">
+                            <h3>彭源远</h3><br><br>
+								<div class="aholder">
+                            <a href="https://yuuan25.github.io/firstweb/" >点击了解更多</a></div>
+							</div>
+                        </div>
+                    </div>
+                </td>
+                <td>
+                    <div class="dormcontainer">
+                        <img src="../image/02.jpg" alt="潘宇璇头像">
+                        <div class="slidetext">
+							<div class="gradient">
+                            <h3>潘宇璇</h3>
+                            <p>"路，很长。"<br>"信仰在，无所畏惧。"</p>
+								<div class="aholder">
+									<a href="../index.html" >点击了解更多</a></div>
+							</div>
+                        </div>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <div class="dormcontainer">
+                        <img src="../image/03.jpg" alt="黎欣雨头像">
+                        <div class="slidetext">
+							<div class="gradient">
+                            <h3>黎欣雨</h3><br><br><div class="aholder">
+								<a href="" >点击了解更多</a></div>
+							</div>
+                        </div>
+                    </div>
+                </td>
+                <td>
+                    <div class="dormcontainer">
+                        <img src="../image/04.jpg" alt="郭金环头像">
+                        <div class="slidetext">
+							<div class="gradient">
+                            <h3>郭金环</h3>
+                            <p><br>“不过是些许风霜罢了”<br></p><div class="aholder">
+								<a href="https://criska99.github.io/MyWeb/" >点击了解更多</a></div></div>
+                        </div>
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+	<img id="classmark" width="100px" src="../image/返回班级.png" alt="返回班级" onmouseover="changeImage(this, '返回班级2.png')" onmouseout="changeImage(this, '返回班级.png')"> 
+</body>
+</html>

@@ -1,0 +1,393 @@
+<!doctype html>
+<html><head>
+<meta charset="utf-8">
+<title>江湖骗术</title>
+<link href="../stylesheet/styleChinesePoems.css" rel="stylesheet">
+<link href="../stylesheet/style01_horizontal_nav.css" rel="stylesheet">
+<style>
+	.box{
+	position: absolute;
+	top:35%;
+	left:20%;
+	/* 使用flex布局使内部元素居中 */
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	min-height: 100vh;
+	background: transparent;	
+}
+	button {
+		cursor:pointer;
+	}
+	     body {
+	font-family: '华文新魏', "Comic Sans MS",sans-serif;
+	margin: 0;
+	adding: 0;
+	background-image: url(../image/background01.png); /* 背景图片 */
+	background-size: cover; /* 覆盖整个页面 */
+	background-attachment: relative; /* 背景图片随滚动条滚动 */
+ 	background-repeat: no-repeat;
+        }
+	.hidden {
+    display: none;
+}
+	.section {
+	margin: 8% 16% 8% 0%; /*正文部分靠左一点，右边留出位置给小图标*/
+	padding: 20px;
+	position:relative;
+	top:20%;
+	left:0%;
+	height:1800px;/*干脆让高度自适应？好像不行 那就多给点*/
+	background: rgba(255, 255, 255, 0.7);
+	text-align: center;
+	backdrop-filter: blur(3px);/*使后面的所有元素模糊*/
+        }
+	.image-gallery {
+    display: flex;
+    justify-content: center;
+    align-items: center;/*居中对齐弹性盒的各项元素*/
+    flex-wrap: wrap;
+    height: auto;
+	-webkit-display: flex; /* Safari */
+    -webkit-align-items: center;
+  }
+  .image-column {
+    display: flex;/*这里不确定要不要加 那还是加吧 反正也不费事（doge*/
+    flex-direction: column;/*竖排~好爱 我本来以为很麻烦的 没想到CSS3一下就成*/
+    margin: 5px;
+  }
+  .image-column img {
+	width:60px;
+	height:auto;
+    margin-bottom: 40px;
+    transition: transform 0.3s ease;
+	cursor:url("../image/樱花cur格式.cur"),auto;
+  }
+	/*因为后来改主意用转换图片了，这段伪元素就没有用了，于是我决定！加载到按钮上（对，我就是想玩花的，能试试就玩玩
+  .image-column img:hover,
+  .image-column img:focus {
+    transform: scale(1.1);
+  }*/
+  .lefttext {/*和righttext重复了90%，可以加个class改下面的HTML解决，但是……懒 就这么麻烦着吧*/
+    visibility: hidden;
+	white-space: pre-line;
+    position: absolute;
+    right:100%;/*完美的贴近 亏我一开始还在傻傻的调left……*/
+	width:510%;
+	height:100%;
+    top:0px;
+    border: 5px solid #E7B0E4;
+	border-radius: 30px;
+    padding: 5px;
+    z-index: 1;
+	text-indent: 2;
+	text-align:left;
+	font-size:large;
+  }
+ .righttext {
+    visibility: hidden;
+	white-space: pre-line;
+    position: absolute;
+    left:100%;
+	width:620%;
+	height:100%;
+    top:0px;
+    border: 5px solid #E7B0E4;
+	border-radius: 30px;
+    padding: 5px;
+    z-index: 1;
+	text-indent: 2;
+	text-align:left;
+	font-size:large;
+  }
+  /*.image-column img:hover + .lefttext {
+    visibility: visible;
+  }写函数写了半天 忽然想起来可以用相邻兄弟选择器解决 泪流满面 虽然总感觉没有函数保险（错觉 不对 好像是不行，那就好哈哈哈哈 没有白写*/
+	.downimg{/*小剧场图标哩*/
+		position:fixed;
+		top:70px;
+		left:88%;
+		width:15%;
+		height:auto;
+		margin-top:0px;
+		padding-top:0px;
+		filter:grayscale(70%);}
+	.downimg:hover,
+	.downimg:active{
+		filter:brightness(120%);
+	}
+	#backgroundImg{
+		width: 100%; 
+		border-width: 0px; 
+		background-color: rgba(207,177,244,0.80); 
+		font-size: 17px; 
+		height: 100%;
+		font-family: STXinwei;
+		cursor:pointer;
+	}
+	#coating{
+    box-sizing: border-box;/*遮罩层*/
+    margin: 0;
+    padding: 0;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(168,99,195,0);
+    display:none;
+	z-index:900;
+	}
+	#popup {
+		margin:auto;/*弹窗*/
+		align-self: center;
+		font-size:xxx-large;
+		display: block;
+		padding:20px;
+		background-color:rgba(207,177,244);
+		color:rgba(255,255,255,0.90);
+		width:auto;
+		height:auto;
+		z-index:988;
+		border-radius: 20px;
+	}
+	@keyframes emerge {
+		from{opacity: 0;}
+		to{opacity:1;}
+	}
+.loader{
+	/* 设置loader的尺寸 */
+	position:relative;
+	width:250px;
+	height:250px;
+	background: transparent;
+	/* 使用滤镜特效fluid实现模糊效果 */
+	filter: url(#fluid);/*连到svg那里的*/
+}
+svg{
+	width: 0;
+	height:0;
+}
+.loader span{
+	/* 将每个span元素绝对定位到loader容器的左上角 */
+	position:absolute;
+	left:0;
+	top:0;
+	width:100%;
+	height:100%;
+}
+
+*{
+	/* 重置所有元素的边距和内边距 */
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+}
+
+.loader span::before{
+	/* 为每个span元素添加一个圆形珠子 */
+	content: "";
+	position: absolute;
+	top: 0;
+	width: 40px;
+	height: 40px;
+	background: linear-gradient(to right, #eaafc8, #654ea0);
+	border-radius: 50%;/*圆形的关键要素*/
+	filter:brightness(120%);/*浅调一下亮色*/
+	-webkit-box-shadow: 0 0 30px #F1CCDC;
+	box-shadow: 0 0 30px #F1CCDC;
+}
+
+@keyframes animate {
+	/* 使珠子旋转360度 */
+	from{transform: rotate(0deg);}
+	to{transform: rotate(360deg);}
+}
+.loader span{
+	/* 使用calc函数将每个静止的珠子根据变量i旋转一定角度 */
+	transform:rotate(calc(45deg*var(--i)));
+}
+
+.rotate{
+	/* 将带有rotate类的珠子应用动画效果 */
+	animation:animate 3s ease-in-out infinite calc(-0.1s*var(--j)) paused;
+	/*animation-delay用calc呈现珠子依次出发的效果*/
+}
+.box::before{
+	content:"给看官表演个魔术~快把鼠标放进来~";
+	font-size:x-large;
+	display:inline-block;
+	position: absolute;
+	right:100%;
+	background-image: linear-gradient(to right, #eaafc8, #654ea3);/*本来想直接用动画弄渐变色的 但是还是改成了用背景实现*/
+	color:transparent;
+	background-clip: text;/*背景剪裁，文字透明，就可以直接渐变文字啦完美*/
+	-webkit-background-clip:text;/*加一道保险 safari、chrome*/
+}
+</style>
+<script>
+	function changeBackgroundImage(selectedValue) {//在下拉列表中切换背景图片
+        var imageMap = {
+            "background01": "../image/background01.png",
+            "background02": "../image/background02.jpg",
+            "background03": "../image/background03.jpg",
+            "background04": "../image/background04.jpg",
+            "background05": "../image/background05.jpg"
+        };
+        document.body.style.backgroundImage = "url('" + imageMap[selectedValue] + "')";
+    }
+	function changeImage(element, newSrc) {
+		element.src = '../image/' + newSrc;
+	}
+	function revealLeftText(textid){
+		for(var i=1;i<6;i++){
+			var m = "text"+String(i);/*首先用循环的方法将左栏所有的对应文段隐藏*/
+			document.getElementById(m).style.visibility = 'hidden';
+		}/*最后再单独把需要的那一个文段显示*/
+		document.getElementById(textid).style.visibility = 'visible';	
+		}
+	function revealRightText(textid){
+		for(var i=6;i<11;i++){
+			var m = "text"+String(i);/*首先用循环的方法将右栏所有的对应文段隐藏*/
+			document.getElementById(m).style.visibility = 'hidden';
+		}/*最后再单独把需要的那一个文段显示*/
+		document.getElementById(textid).style.visibility = 'visible';	
+		}
+	function beginanimate() {
+  		var elements = document.getElementsByClassName("rotate");
+  		for (var i = 0; i < elements.length; i++) {/*遍历每个elements*/
+			elements[i].style.animationPlayState = 'running';/*开始运行*/
+  }
+}
+	function pauseanimate() {
+  		var elements = document.getElementsByClassName("rotate");
+  		for (var i = 0; i < elements.length; i++) {/*遍历每个elements*/
+			elements[i].style.animationPlayState = 'paused';/*暂停*/
+  		}
+	}
+	
+	function pop() {
+		var pointer = document.getElementById("coating");
+		pointer.style.display = "flex";
+		pointer.style.animation = "emerge 5s 1 forwards";
+	}	
+</script>
+</head>
+
+<body>
+	<div id="navigation-bar">
+      <h1 style="position: absolute; left: 37%; top: 0px; margin-top: 10px; font-size: xxx-large; color: #3D0000;">江湖骗术</h1>
+      <button >
+<select id="backgroundImg" name="诗歌国风背景图" onchange="changeBackgroundImage(this.value);">//给下拉列表添加一个事件监听器，在用户选择不同的选项时触发更换背景的函数。
+	<option value="background01" selected>切换背景</option>
+	<option value="background01">角落红梅</option>
+	<option value="background02">红霞映梅</option>
+	<option value="background03">墨莲</option>
+	<option value="background04">花枝停雀</option>
+	<option value="background05">水畔</option>
+</select>
+</button>
+      <button onclick="window.open('./dorm.html','_self');" style="float:left">返回寝室</button>
+        <button  onclick="window.open('../index.html','_self');" style="float:left">返回主页</button>	
+        <button onclick="pop()" style="float:right"  >台词</button>
+	<a href="./台词小剧场.html" cursor:pointer;><img class="downimg" src="../image/剧场.png" height="300" alt="剧场链接"/></a>
+    </div>
+	<div class="section" >
+		<div class="image-gallery" style="position:absolute;left:40%;top:10px;">
+  			<div class="image-column">
+  				<img src="../image/风1.png" alt="风" onmouseover="changeImage(this, '风2.png');revealLeftText('text1')" onmouseout="changeImage(this, '风1.png')">
+    			<div class="lefttext" id="text1"><!--失策 其实我应该另外给文字建一个栏的 但是……当时没想到嘛-->
+		
+		
+		风，也称作“蜂”，看这个字就知道是团伙作案，像蜜蜂一样，蜂拥而至，倏忽即散，来得快，走得快。
+		主要目标是贪官和富商，行骗时间长,作案人数多，需要一定的专业知识，但往往会骗走巨额财富。比如NBA球星“石佛”邓肯，被私人财物顾问骗走2500万美元，而“狼王”加内特被骗7700万美元，最后官司还打不赢，字是你签的，一分钱都没进人家账户,怎么能算骗，顶多属于投资失败。</div>
+    		<img src="../image/马1.png" alt="马" onmouseover="changeImage(this, '马2.png');revealLeftText('text2')" onmouseout="changeImage(this, '马1.png')">
+    <div class="lefttext" id="text2">
+		单枪匹马出动，这个成本低但收入却不一定少。
+		一个以前的邻居中过这招，我们当地产水果，前来收购水果的外地客商一般会寻个本地人作代办，按照收货吨数给一定的佣金，属于挣钱很快的一个衍生职业。有匹“马”伪装成客商，看好目标就凑上去说要收货，愿不愿意当代办。然后吃饭喝酒，让你带他去银行取收购款，一开口就是几十万，银行当然没现钱，预约好时间让几天后来取。“马”说先定一批打包纸箱，钱款从银行还没取出，要不你先垫一下，不管你是垫现金还是按人家的链接下单购买纸箱，只要钱一出去拐个弯“马”就人间蒸发了。</div>
+    
+    <img src="../image/燕1.png" alt="燕" onmouseover="changeImage(this, '燕2.png');revealLeftText('text3')" onmouseout="changeImage(this, '燕1.png')">
+    <div class="lefttext" id="text3">
+		燕就是颜，美人计。
+		酒店门缝给你塞小卡片，如果你没忍住联系了，可能会快活一番，也可能你正在洗澡，财物被美人洗劫一空溜走，除了一个黑户电话什么都查不到，这算好的。或者你脱光了，一堆男人推门而入举着手机边拍边喊QJ，再把你打一顿才说钱的事。你都不敢跟别人说被骗了。也有各种针对富豪的高级名媛，比如NBA巨星诺维斯基，被个惯犯骗的神魂颠倒，和诺维斯基在结婚前一个月旧案事发被捕。皮尔斯和麦迪更绝，这两位巨星中了同一个女人的美人计，事发后警方调查，他两都极力否认和美女有过关系。</div>
+    
+    <img src="../image/雀1.png" alt="雀" onmouseover="changeImage(this, '雀2.png');revealLeftText('text4')" onmouseout="changeImage(this, '雀1.png')">
+    <div class="lefttext" id="text4">
+		
+		雀就是缺，缺口，主要指官位的缺口。
+		偶尔会在新闻上看到一些团伙假扮部委大员或巡视组到某地方去视察暗访，然后某些官员会在“无意”中得知消息，为了升迁或者平息心虚就送钱，安全起见送钱的时候可能面都不见。事实上都是经过事前调查，选择好目标后有备而来。现在孩子上学也是缺口，每年秋天总能爆出一些人能搞定学位的事，然后有家长十万八万的掏钱。雀对行业要求的专业化程度最高，至少要完全了解事情的运作方式，还要懂行业知识和心理战。</div>
+    
+    <img src="../image/瓷1.png" alt="瓷" onmouseover="changeImage(this, '瓷2.png');revealLeftText('text5')" onmouseout="changeImage(this, '瓷1.png')">
+    <div class="lefttext" id="text5">瓷就是碰瓷，直接导致行车记录仪成了车辆必需品，就是过马路见到大爷奶奶摔倒要扶也得先找有没有证人或者监控。
+		你在大街上走着走着，一个老妇人故意抱个瓷瓶冲过来，然后你俩撞在一起，老妇人倒地，瓷瓶摔个稀碎，老妇人也昏迷不醒。此时老妇人的大儿子、二儿子、三儿子乃至孙子重孙子都会突然从周围冒出，哭爹喊娘，大喊报官！此时人群中肯定会出来一个好心人，告诉你对待这种穷人，赶快花钱消灾，否则一旦报了官府，事就大了，你给她几十两银子打发了算了。等你掏空口袋，将身上的银子都给了他们后，他们就会背起老妇人离去，说是去看病，实则暗地里分钱去了。</div>
+  </div>
+  
+  <div class="image-column" style="position:absolute;left:100%;">
+    <img src="../image/金1.png" alt="金" onmouseover="changeImage(this, '金2.png');revealRightText('text6')" onmouseout="changeImage(this, '金1.png')">
+	  <div class="righttext" id="text6">金，就是算命，以前在天桥和医院旁常见，城管发威后基本都跑到寺庙和景点周围了。这些事有过不去的坎可以听听，有个宽心话气顺点好过日子，毕竟你去找熟人朋友宽心，人也不见得说，怕借钱啊。
+	  其实算命除了一些玄学原理，还会涉及识人之术。譬如我之前读到的一段算命（诈骗）之学&quot;寡妇询去留，定思重配。老妇多叹息，受屈难言。
+病询自身，虽佑亦宜慢泄。老询寿元，未可即断死亡。
+有子而寡，宜劝守节，将来必有好景。无儿问去，当要着其别栖为高。
+		  少妾专横，当失缘于夫子。老姑无力，定受制于媳儿。&quot;很难评价，只能说骗术不如读心。</div>
+    <img src="../image/评1.png" alt="评" onmouseover="changeImage(this, '评2.png');revealRightText('text7')" onmouseout="changeImage(this, '评1.png')">
+	  <div class="righttext" id="text7"><br /><br /><br />评，就是街头巷尾说评书的。他们为了博得更多的人来听，为了更持久地讲下去，为了多赚两个稀饭钱，往往一个段子能讲上三年五载的，一个很短的故事，他们添油加醋，正史野史，胡编乱造，有的没有的，信口雌黄，目的就是骗得老百姓听得有滋有味，这样财源才不会断；现在都算艺术，评书艺人都快消失了。十多年前倒是经常能遇见评书艺人，有孩子学徒，也有老人，站街边或者茶馆说一段。</div>
+    <img src="../image/皮1.png" alt="皮" onmouseover="changeImage(this, '皮2.png');revealRightText('text8')" onmouseout="changeImage(this, '皮1.png')">
+	  <div class="righttext" id="text8"><br /><br /><br />皮，就是卖野药的，葫芦里装着各种仙丹妙药，号称能包治百病，对于穷苦看不起病的老百姓，这都是救命的稻草，对于骗子这就是行骗的法宝。卖狗皮膏药、跌打药酒，俗称卖大力丸的，现在还能见到，像虎骨或者民间神药，疫情后政府允许在路边摆摊，我就看到有个摊在卖膏药拔火罐。是不是行骗得问体验过的患者，不体验识别他们也不难，只要挂出“包治百病”招牌的就是骗子。</div>
+    <img src="../image/彩1.png" alt="彩" onmouseover="changeImage(this, '彩2.png');revealRightText('text9')" onmouseout="changeImage(this, '彩1.png')">
+	  <div class="righttext" id="text9"><br /><br /><br /><br /><br />彩，就是变戏法的，现在叫魔术，一会儿袖子里飞出个鸽子，一会儿头上冒烟，隔空取物，口吐白莲，都是骗人的手法。地上三个棉球用两只碗扣住划拉，让你押注猜碗里几个球，猜对了他给你1:1赔钱，猜错了押的钱归他。高三时我在桥上不到五分钟就输光了打算去新华书店的五十元钱......
+
+</div>
+    <img src="../image/挂1.png" alt="挂" onmouseover="changeImage(this, '挂2.png');revealRightText('text10')" onmouseout="changeImage(this, '挂1.png')">
+	  <div class="righttext" id="text10"><br />挂，就是街头卖艺，一边卖艺，一边卖野药，先用大锤在自己胸口上敲碎大石头，再把刀剑插进自己喉咙，或者单掌开砖，或者油锅中捞铜钱，然后标榜自己气功如何如何厉害，再说这都得益于‘大力丸’，随后就开始买药了，都是骗……如果表演完拿着笸箩让观众打赏，喊着有钱的捧个钱场，没钱的捧个人场，这类算卖艺不算行骗。城门洞子几乎每晚都有谈情唱歌的，琴盒里一晚上也能扔不少零的整的，这也算挂。行骗的是那些卖完艺不需要打赏，而是拿出一些包治百病的药丸给广大中老年朋友推销的班子。</div>
+  </div>
+</div>
+	<div class="box" onmouseover="beginanimate()" onmouseout="pauseanimate()">
+		<svg>
+			<filter id="fluid">
+				<fegaussianblur in="SourceGraphic" stdDeviation="10" />
+				<!-- 高斯模糊滤镜效果-->
+				<fecolormatrix values="
+								   1 0 0 0 0
+								   0 1 0 0 0
+								   0 0 1 0 0
+								   0 0 0 20 -10" id="colormatrix">
+				</fecolormatrix>
+				<!--基于转换矩阵对颜色进行变换。每一像素的颜色值 (一个表示为 [红，绿，蓝，透明度] 的矢量) 都经过矩阵乘法 (matrix multiplated) 计算出的新颜色。-->	
+			</filter>
+		</svg>
+		<div class="loader" >
+			<span style="--i:1"></span><!--各自定义变量i和j以便于计算旋转的角度和位置-->
+			<span style="--i:2"></span>
+			<span style="--i:3"></span>
+			<span style="--i:4"></span>
+			<span style="--i:5"></span>
+			<span style="--i:6"></span>
+			<span style="--i:7"></span>
+			<span style="--i:8"></span>
+			<span class="rotate" style="--j:0"></span>
+			<span class="rotate" style="--j:1"></span>
+			<span class="rotate" style="--j:2"></span>
+			<span class="rotate" style="--j:3"></span>
+			<span class="rotate" style="--j:4"></span>
+		</div>
+	</div>
+	<footer><div class="gradient">内容部分整合自
+		<ul>
+			<li><a href="https://zhuanlan.zhihu.com/p/371421193/">知乎：说说江湖十大骗术</a></li>
+			<li><a href="https://zhuanlan.zhihu.com/p/60031003/">知乎：江湖十大骗</a></li>
+		</ul>
+		流珠动画灵感源于网页加载时的画面，然后参考了b站教程<ul>
+			<li><a href="https://www.bilibili.com/video/BV12w411s7F2/?spm_id_from=333.788&vd_source=ee7f62b236f6809dc4d0bcd888b560a6/">b站：流珠加载（动画延迟、滤镜）</a></li>
+		</ul>
+		图片利用字体、外圈及PS进行拼合。
+		</div>
+	</footer>
+</div>
+	<div id="coating">
+		<div id="popup">
+			<a href="./台词小剧场.html" style="display: inline-block;color:inherit;text-decoration: none;cursor:pointer;">是</a>
+			<div onclick="document.getElementById('coating').style.display='none'" style="cursor:pointer;display: inline-block;">否&nbsp;</div>进入小剧场？
+		</div>
+	</div>
+</body>
+</html>
